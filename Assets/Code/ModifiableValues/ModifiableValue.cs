@@ -134,7 +134,7 @@ namespace Gameplay.Values
             newValue = GetModifiedValue(newValue);
 
             currentRawValue = newValue;
-            currentValue = ConvfertValueToType(currentRawValue);
+            currentValue = ConvertValueToType(currentRawValue);
 
             needRefresh = false;
         }

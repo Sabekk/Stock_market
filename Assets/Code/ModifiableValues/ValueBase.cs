@@ -38,7 +38,7 @@ namespace Gameplay.Values
         {
             this.valueType = valueType;
             rawValue = value;
-            convertedValue = ConvfertValueToType(rawValue);
+            convertedValue = ConvertValueToType(rawValue);
         }
 
         #endregion
@@ -48,7 +48,7 @@ namespace Gameplay.Values
         public virtual void SetRawValue(float value)
         {
             rawValue = value;
-            convertedValue = ConvfertValueToType(rawValue);
+            convertedValue = ConvertValueToType(rawValue);
         }
         public virtual void AddToRawValue(float value)
         {
@@ -56,10 +56,10 @@ namespace Gameplay.Values
                 return;
 
             rawValue += value;
-            convertedValue = ConvfertValueToType(rawValue);
+            convertedValue = ConvertValueToType(rawValue);
         }
 
-        protected virtual float ConvfertValueToType(float value)
+        protected virtual float ConvertValueToType(float value)
         {
             float convertedValue = value;
 

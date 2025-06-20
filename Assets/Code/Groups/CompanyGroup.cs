@@ -1,4 +1,5 @@
 using Database.Group;
+using Gameplay.Values;
 using UnityEngine;
 
 namespace Gameplay.Group
@@ -8,20 +9,23 @@ namespace Gameplay.Group
         #region VARIABLES
 
         private GroupData data;
+        private ModifiableValue groupStockPrize;
 
         #endregion
 
         #region PROPERTIES
 
         public int Id => data.Id;
+        public ModifiableValue GroupStockPrize => groupStockPrize;
 
         #endregion
 
         #region CONSTRUCTORS
 
-        public CompanyGroup(GroupData groupData)
+        public CompanyGroup(GroupData groupData, float prizeMultipler)
         {
             data = groupData;
+            groupStockPrize = new ModifiableValue(data.StockPrize * prizeMultipler, ValueType.OVERALL);
         }
 
         #endregion

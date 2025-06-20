@@ -12,6 +12,7 @@ namespace Database.Company
         [SerializeField] private int id = Guid.NewGuid().GetHashCode();
         [SerializeField] private string companyName;
         [SerializeField] private float mainStockPrize;
+        [SerializeField] private float groupsStockPrizeMultipler;
         [SerializeField] private GroupData[] startedGroups;
 
         #endregion
@@ -21,6 +22,7 @@ namespace Database.Company
         public int Id => id;
         public string CompanyName => companyName;
         public float MainStockPrize => mainStockPrize;
+        public float GroupsStockPrizeMultipler => groupsStockPrizeMultipler;
         public GroupData[] StartedGroups => startedGroups;
 
 
