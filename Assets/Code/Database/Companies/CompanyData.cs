@@ -1,34 +1,38 @@
+using Database.Group;
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CompanyData", menuName = "Companies/CompanyData")]
-public class CompanyData : ScriptableObject, IIdEqualable
+namespace Database.Company
 {
-    #region VARIABLES
-
-    [SerializeField] private int id = Guid.NewGuid().GetHashCode();
-    [SerializeField] private string companyName;
-    [SerializeField] private float mainStockPrize;
-    [SerializeField] private GroupData[] startedGroups;
-
-    #endregion
-
-    #region PROPERTIES
-
-    public int Id => id;
-    public string CompanyName => companyName;
-    public float MainStockPrize => mainStockPrize;
-    public GroupData[] StartedGroups => startedGroups;
-
-
-    #endregion
-
-    #region METHODS
-
-    public bool IdEquals(int id)
+    [CreateAssetMenu(fileName = "CompanyData", menuName = "Database/Companies/CompanyData")]
+    public class CompanyData : ScriptableObject, IIdEqualable
     {
-        return Id == id;
-    }
+        #region VARIABLES
 
-    #endregion
+        [SerializeField] private int id = Guid.NewGuid().GetHashCode();
+        [SerializeField] private string companyName;
+        [SerializeField] private float mainStockPrize;
+        [SerializeField] private GroupData[] startedGroups;
+
+        #endregion
+
+        #region PROPERTIES
+
+        public int Id => id;
+        public string CompanyName => companyName;
+        public float MainStockPrize => mainStockPrize;
+        public GroupData[] StartedGroups => startedGroups;
+
+
+        #endregion
+
+        #region METHODS
+
+        public bool IdEquals(int id)
+        {
+            return Id == id;
+        }
+
+        #endregion
+    }
 }
