@@ -1,18 +1,21 @@
 using Database.Company;
 using Gameplay.Group;
 using Gameplay.Values;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Gameplay.Company
 {
+    [Serializable]
     public class Company : IAttachableEvents, IIdEqualable
     {
         #region VARIABLES
 
-        private List<CompanyGroup> groups;
-        private CompanyData data;
+        [SerializeField] private ModifiableValue stockPrize;
+        [SerializeField] private List<CompanyGroup> groups;
 
-        private ModifiableValue stockPrize;
+        private CompanyData data;
 
         #endregion
 
@@ -40,20 +43,20 @@ namespace Gameplay.Company
 
         public void AddGroup(CompanyGroup newGroup)
         {
-            CompanyGroup group = groups.Find(x => x.IdEquals(newGroup.Id));
+            CompanyGroup group = Groups.Find(x => x.IdEquals(newGroup.Id));
             if (group != null)
                 group.GroupStockPrize.AddToRawValue(newGroup.GroupStockPrize.CurrentValue);
             else
             {
                 stockPrize.AddNewComponent(newGroup.GroupStockPrize);
-                groups.Add(newGroup);
+                Groups.Add(newGroup);
             }
         }
 
         public void RemoveGroup(CompanyGroup groupToRemove)
         {
             stockPrize.RemoveComponent(groupToRemove.GroupStockPrize);
-            groups.Remove(groupToRemove);
+            Groups.Remove(groupToRemove);
         }
 
         public void AttachEvents()
@@ -73,6 +76,8 @@ namespace Gameplay.Company
 
         private void InitializeGroups()
         {
+            groups = new List<CompanyGroup>();
+
             foreach (var startingGroupData in data.StartedGroups)
             {
                 CompanyGroup group = new CompanyGroup(startingGroupData, GroupStockPrizeMultipler);

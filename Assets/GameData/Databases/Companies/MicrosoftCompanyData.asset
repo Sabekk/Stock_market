@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94898b7fe4cf05f428f54244c75e7510, type: 3}
+  m_Name: MicrosoftCompanyData
+  m_EditorClassIdentifier: 
+  id: 68821662
+  companyName: Microsoft
+  companyIcon: {fileID: 0}
+  sharesCount: 6000
+  mainStockPrize: 41
+  groupsStockPrizeMultipler: 2.1
+  startedGroups:
+  - {fileID: 11400000, guid: 3c955e7704f67414a943d47d7e552097, type: 2}
+  - {fileID: 11400000, guid: 9fa69db5fae7cc943b312939ff8d92a3, type: 2}
+  - {fileID: 11400000, guid: 6c618dab78af88340a01a93ef0411d42, type: 2}

@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f38cf1e214ea6499d061c81493a98e, type: 3}
   m_Name: CompaniesDatabase
   m_EditorClassIdentifier: 
-  companyDatas: []
+  companyDatas:
+  - {fileID: 11400000, guid: 4d92d3fc8b4ef284b94df55c75c03378, type: 2}
+  - {fileID: 11400000, guid: 6c1a68639b8ba184fa961dd346023f62, type: 2}
+  - {fileID: 11400000, guid: 89a28b4427d2d4b41a111113fb0e8985, type: 2}
+  - {fileID: 11400000, guid: a9aea4161f5e71643a80c24bce307d05, type: 2}
+  - {fileID: 11400000, guid: c5f36a325fd41a0409481a15d9fcda02, type: 2}
+  - {fileID: 11400000, guid: f16b4f0d25e80634192815638e6714f3, type: 2}
+  - {fileID: 11400000, guid: ffbb8dc33baa6314684ad959247b9721, type: 2}

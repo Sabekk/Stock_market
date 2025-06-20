@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def9b54f507a94d4aa8c53177cdf7af1, type: 3}
   m_Name: MainDatabases
   m_EditorClassIdentifier: 
+  gameplaySettings: {fileID: 11400000, guid: 006c12e8cef097245a0cd9b3a9759b46, type: 2}
   companiesDatabase: {fileID: 11400000, guid: 310064d7d57f20644948714a421625d4, type: 2}
   groupsDatabase: {fileID: 11400000, guid: 2778bc688d0b01744958f53a241adeaa, type: 2}

@@ -1,5 +1,6 @@
 using Database.Company;
 using Database.Group;
+using Database.Settings;
 using UnityEngine;
 
 namespace Database
@@ -9,6 +10,7 @@ namespace Database
     {
         #region VARIABLES
 
+        [SerializeField] private GameplaySettings gameplaySettings;
         [SerializeField] private CompaniesDatabase companiesDatabase;
         [SerializeField] private GroupsDatabase groupsDatabase;
 
@@ -18,6 +20,7 @@ namespace Database
 
         public new static MainDatabases Instance => GetInstance("Singletons/MainDatabases");
 
+        public GameplaySettings GameplaySettings => gameplaySettings;
         public CompaniesDatabase CompaniesDatabase => companiesDatabase;
         public GroupsDatabase GroupsDatabase => groupsDatabase;
 

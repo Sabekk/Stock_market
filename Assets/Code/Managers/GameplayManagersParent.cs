@@ -16,7 +16,7 @@ namespace Gameplay.Managment
 
         protected override void SetManagers()
         {
-
+            managers.AddRange(GetComponentsInChildren<IGameplayManager>());
         }
 
         #endregion

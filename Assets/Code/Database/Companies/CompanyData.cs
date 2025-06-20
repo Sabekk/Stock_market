@@ -11,6 +11,8 @@ namespace Database.Company
 
         [SerializeField] private int id = Guid.NewGuid().GetHashCode();
         [SerializeField] private string companyName;
+        [SerializeField] private Sprite companyIcon;
+        [SerializeField] private int sharesCount;
         [SerializeField] private float mainStockPrize;
         [SerializeField] private float groupsStockPrizeMultipler;
         [SerializeField] private GroupData[] startedGroups;
@@ -21,6 +23,8 @@ namespace Database.Company
 
         public int Id => id;
         public string CompanyName => companyName;
+        public Sprite CompanyIcon => companyIcon;
+        public int SharesCount => sharesCount;
         public float MainStockPrize => mainStockPrize;
         public float GroupsStockPrizeMultipler => groupsStockPrizeMultipler;
         public GroupData[] StartedGroups => startedGroups;

@@ -1,15 +1,17 @@
 using Database.Group;
 using Gameplay.Values;
+using System;
 using UnityEngine;
 
 namespace Gameplay.Group
 {
+    [Serializable]
     public class CompanyGroup : IIdEqualable
     {
         #region VARIABLES
 
+        [SerializeField] private ModifiableValue groupStockPrize;
         private GroupData data;
-        private ModifiableValue groupStockPrize;
 
         #endregion
 
