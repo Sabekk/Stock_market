@@ -17,7 +17,6 @@ namespace Gameplay.Values
 
         [SerializeField] private float currentRawValue;
         [SerializeField] private float currentValue;
-        [SerializeField] private ValueType valueType;
         [SerializeField] private List<ModifiableValue> additionalComponents;
         [SerializeField] private List<Modifier> modifiers;
         [SerializeField] private bool needRefresh;
@@ -97,7 +96,7 @@ namespace Gameplay.Values
         {
             modifiers.Add(modifier);
 
-            if (modifier.Value != 0)
+            if (modifier.BaseValue != 0)
                 ForceRefreshValue();
         }
 
@@ -105,7 +104,7 @@ namespace Gameplay.Values
         {
             modifiers.Remove(modifier);
 
-            if (modifier.Value != 0)
+            if (modifier.BaseValue != 0)
                 ForceRefreshValue();
         }
 
@@ -170,10 +169,10 @@ namespace Gameplay.Values
                 switch (modifiers[i].ValueType)
                 {
                     case ValueType.OVERALL:
-                        modifiedValue += modifiers[i].Value;
+                        modifiedValue += modifiers[i].BaseValue;
                         break;
                     case ValueType.PERCENTAGE:
-                        modifiedValue += valueToModify * modifiers[i].Value;
+                        modifiedValue += valueToModify * modifiers[i].BaseValue;
                         break;
                     default:
                         break;

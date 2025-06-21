@@ -1,6 +1,7 @@
 using Database.Company;
 using Database.Group;
 using Database.Settings;
+using ObjectPooling;
 using UnityEngine;
 
 namespace Database
@@ -13,6 +14,7 @@ namespace Database
         [SerializeField] private GameplaySettings gameplaySettings;
         [SerializeField] private CompaniesDatabase companiesDatabase;
         [SerializeField] private GroupsDatabase groupsDatabase;
+        [SerializeField] private ObjectPoolDatabase objectPoolDatabase;
 
         #endregion
 
@@ -23,6 +25,7 @@ namespace Database
         public GameplaySettings GameplaySettings => gameplaySettings;
         public CompaniesDatabase CompaniesDatabase => companiesDatabase;
         public GroupsDatabase GroupsDatabase => groupsDatabase;
+        public ObjectPoolDatabase ObjectPoolDatabase => objectPoolDatabase;
 
         #endregion
 

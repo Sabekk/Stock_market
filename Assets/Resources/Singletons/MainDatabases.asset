@@ -15,3 +15,4 @@ MonoBehaviour:
   gameplaySettings: {fileID: 11400000, guid: 006c12e8cef097245a0cd9b3a9759b46, type: 2}
   companiesDatabase: {fileID: 11400000, guid: 310064d7d57f20644948714a421625d4, type: 2}
   groupsDatabase: {fileID: 11400000, guid: 2778bc688d0b01744958f53a241adeaa, type: 2}
+  objectPoolDatabase: {fileID: 11400000, guid: fa89380c3c008924a8dd0564de580970, type: 2}

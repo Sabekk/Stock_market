@@ -15,6 +15,7 @@ namespace Gameplay.Company
         [SerializeField] private ModifiableValue stockPrize;
         [SerializeField] private List<CompanyGroup> groups;
 
+        private int currentSharesCount;
         private CompanyData data;
 
         #endregion
@@ -34,6 +35,7 @@ namespace Gameplay.Company
         {
             data = companyData;
             stockPrize = new ModifiableValue(data.MainStockPrize, ValueType.OVERALL);
+            currentSharesCount = data.SharesCount;
             InitializeGroups();
         }
 

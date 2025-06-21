@@ -17,7 +17,7 @@ namespace Gameplay.Values
         /// <summary>
         /// Converted value to type
         /// </summary>
-        public float Value
+        public float BaseValue
         {
             get { return convertedValue; }
             set { SetRawValue(value); }
@@ -50,6 +50,7 @@ namespace Gameplay.Values
             rawValue = value;
             convertedValue = ConvertValueToType(rawValue);
         }
+
         public virtual void AddToRawValue(float value)
         {
             if (value == 0)
