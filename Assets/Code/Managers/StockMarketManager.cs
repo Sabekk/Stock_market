@@ -1,3 +1,4 @@
+using EventSystem;
 using Gameplay.Companies;
 using Gameplay.Managment;
 using Gameplay.Player;
@@ -24,11 +25,14 @@ namespace Gameplay.StockMarket
             if (CanBuyShares(company, sharesToBuy) == false)
                 return;
 
-            int totalCostOfShares = company.GetPrizeOfShares(company.CurrentSharesCount);
+            Events.Gameplay.SharesEv.OnSharesChanging?.Invoke(company, sharesToBuy);
+        }
 
-            company.ChangeShares(-sharesToBuy);
-            PlayerManager.Instance.ChangeShares(companyId, sharesToBuy);
-            PlayerManager.Instance.ChangeMoney(-totalCostOfShares);
+        public void SellShares(int companyId, int sharesToSell)
+        {
+            Company company = CompaniesManager.Instance.TryGetCompanyById(companyId);
+
+            Events.Gameplay.SharesEv.OnSharesChanging?.Invoke(company, -sharesToSell);
         }
 
         public bool CanBuyShares(int companyId, int sharesToBuy)
@@ -45,7 +49,7 @@ namespace Gameplay.StockMarket
             if (company.CurrentSharesCount < sharesToBuy)
                 return false;
 
-            int totalCostOfShares = company.GetPrizeOfShares(company.CurrentSharesCount);
+            int totalCostOfShares = company.GetPrizeOfShares(sharesToBuy);
             if (totalCostOfShares > PlayerManager.Instance.CurrentMoney)
                 return false;
 

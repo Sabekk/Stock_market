@@ -1,4 +1,5 @@
 using Database.Company;
+using EventSystem;
 using Gameplay.Group;
 using Gameplay.Values;
 using System;
@@ -8,8 +9,14 @@ using UnityEngine;
 namespace Gameplay.Companies
 {
     [Serializable]
-    public class Company : IAttachableEvents, IIdEqualable
+    public class Company : IAttachableEvents, IIdEqualable, IDisposable
     {
+        #region ACTIONS
+
+        public event Action OnSharesChanged;
+
+        #endregion
+
         #region VARIABLES
 
         [SerializeField] private ModifiableValue stockPrize;
@@ -39,6 +46,7 @@ namespace Gameplay.Companies
             stockPrize = new ModifiableValue(data.MainStockPrize, ValueType.OVERALL);
             currentSharesCount = data.SharesCount;
             InitializeGroups();
+            AttachEvents();
         }
 
         #endregion
@@ -50,9 +58,9 @@ namespace Gameplay.Companies
             return Mathf.RoundToInt(sharesCount * StockPrize.CurrentValue);
         }
 
-        public void ChangeShares(int delta)
+        public void Dispose()
         {
-            currentSharesCount += delta;
+            DetachEvents();
         }
 
         public void AddGroup(CompanyGroup newGroup)
@@ -75,12 +83,12 @@ namespace Gameplay.Companies
 
         public void AttachEvents()
         {
-
+            Events.Gameplay.SharesEv.OnSharesChanging += HandleSharesBuying;
         }
 
         public void DetachEvents()
         {
-
+            Events.Gameplay.SharesEv.OnSharesChanging -= HandleSharesBuying;
         }
 
         public bool IdEquals(int id)
@@ -98,6 +106,20 @@ namespace Gameplay.Companies
                 AddGroup(group);
             }
         }
+
+        #region HANDLERS
+
+        private void HandleSharesBuying(Company company, int sharesDelta)
+        {
+            if (!IdEquals(company.Id))
+                return;
+
+            currentSharesCount -= sharesDelta;
+
+            OnSharesChanged?.Invoke();
+        }
+
+        #endregion
 
         #endregion
     }

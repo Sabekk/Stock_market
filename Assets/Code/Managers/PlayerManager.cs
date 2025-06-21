@@ -1,4 +1,6 @@
 using Database;
+using EventSystem;
+using Gameplay.Companies;
 using Gameplay.Managment;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,13 +32,25 @@ namespace Gameplay.Player
             ResetShares();
         }
 
+        protected override void AttachEvents()
+        {
+            base.AttachEvents();
+            Events.Gameplay.SharesEv.OnSharesChanging += HandleSharesChanging;
+        }
+
+        protected override void DetachEvents()
+        {
+            base.DetachEvents();
+            Events.Gameplay.SharesEv.OnSharesChanging -= HandleSharesChanging;
+        }
+
         public int GetShares(int companyId)
         {
             SharesOfCompanies.TryGetValue(companyId, out int shares);
             return shares;
         }
 
-        public void ChangeShares(int companyId, int sharesDelta)
+        private void ChangeShares(int companyId, int sharesDelta)
         {
             if (SharesOfCompanies.ContainsKey(companyId) == false)
             {
@@ -53,7 +67,7 @@ namespace Gameplay.Player
             }
         }
 
-        public void ChangeMoney(int delta)
+        private void ChangeMoney(int delta)
         {
             currentMoney += delta;
         }
@@ -70,6 +84,18 @@ namespace Gameplay.Player
 
             SharesOfCompanies.Clear();
         }
+
+        #region HANDLERS
+
+        private void HandleSharesChanging(Company company, int sharesDelta)
+        {
+            ChangeShares(company.Id, sharesDelta);
+
+            int totalCost = company.GetPrizeOfShares(sharesDelta);
+            ChangeMoney(-totalCost);
+        }
+
+        #endregion
 
         #endregion
     }
