@@ -50,7 +50,7 @@ namespace Gameplay.StockMarket
                 return false;
 
             int totalCostOfShares = company.GetPrizeOfShares(sharesToBuy);
-            if (totalCostOfShares > PlayerManager.Instance.CurrentMoney)
+            if (totalCostOfShares > PlayerManager.Instance.CurrentMoney.CurrentValue)
                 return false;
 
             return true;

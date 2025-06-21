@@ -1,3 +1,4 @@
+using EventSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,6 @@ namespace Gameplay.Managment
 {
     public abstract class ManagersParent : MonoSingleton<ManagersParent>
     {
-        #region ACTION
-
-        public event Action OnManagersInitialized;
-
-        #endregion
-
         #region VARIABLES
 
         [SerializeField] protected List<IGameplayManager> managers = new();
@@ -32,7 +27,7 @@ namespace Gameplay.Managment
             LateInitializeManagers();
 
             Initialized = true;
-            OnManagersInitialized?.Invoke();
+            Events.Gameplay.CoreEv.OnManagersInitialized?.Invoke();
         }
 
         private void OnDestroy()

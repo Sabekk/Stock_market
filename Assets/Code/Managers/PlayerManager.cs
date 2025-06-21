@@ -2,6 +2,7 @@ using Database;
 using EventSystem;
 using Gameplay.Companies;
 using Gameplay.Managment;
+using Gameplay.Values;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,15 +12,18 @@ namespace Gameplay.Player
     {
         #region VARIABLES
 
-        private int currentMoney;
-        private Dictionary<int, int> sharesOfCompanies;
+        private ModifiableValue currentMoney;
+        private ModifiableValue sharesValue;
+
+        private Dictionary<Company, int> sharesOfCompanies;
 
         #endregion
 
         #region PROPERTIES
 
-        public int CurrentMoney => currentMoney;
-        public Dictionary<int, int> SharesOfCompanies => sharesOfCompanies;
+        public ModifiableValue CurrentMoney => currentMoney;
+        public ModifiableValue SharesValue => sharesValue;
+        public Dictionary<Company, int> SharesOfCompanies => sharesOfCompanies;
 
         #endregion
 
@@ -44,55 +48,71 @@ namespace Gameplay.Player
             Events.Gameplay.SharesEv.OnSharesChanging -= HandleSharesChanging;
         }
 
-        public int GetShares(int companyId)
+        public int GetShares(Company company)
         {
-            SharesOfCompanies.TryGetValue(companyId, out int shares);
+            SharesOfCompanies.TryGetValue(company, out int shares);
             return shares;
         }
 
-        private void ChangeShares(int companyId, int sharesDelta)
+        private void ChangeShares(Company company, int sharesDelta)
         {
-            if (SharesOfCompanies.ContainsKey(companyId) == false)
+            if (SharesOfCompanies.ContainsKey(company) == false)
             {
-                SharesOfCompanies.Add(companyId, sharesDelta);
+                SharesOfCompanies.Add(company, sharesDelta);
                 return;
             }
 
-            SharesOfCompanies[companyId] += sharesDelta;
+            SharesOfCompanies[company] += sharesDelta;
 
-            if (SharesOfCompanies[companyId] < 0)
+            if (SharesOfCompanies[company] < 0)
             {
-                SharesOfCompanies[companyId] = 0;
+                SharesOfCompanies[company] = 0;
                 Debug.LogError("Error setting shares. Check conditions");
             }
         }
 
         private void ChangeMoney(int delta)
         {
-            currentMoney += delta;
+            currentMoney.AddToRawValue(delta);
         }
 
         private void SetMoney()
         {
-            currentMoney = MainDatabases.Instance.GameplaySettings.AssumptionsSettings.PlayerMoney;
+            currentMoney = new ModifiableValue(MainDatabases.Instance.GameplaySettings.AssumptionsSettings.PlayerMoney, ValueType.OVERALL);
         }
 
         private void ResetShares()
         {
+            if (sharesValue == null)
+                sharesValue = new ModifiableValue(0, ValueType.OVERALL);
+            else
+                sharesValue.CleanUp();
+
             if (SharesOfCompanies == null)
                 sharesOfCompanies = new();
 
             SharesOfCompanies.Clear();
+            RecalculateSharesValue();
+        }
+
+        private void RecalculateSharesValue()
+        {
+            SharesValue.CleanUp();
+
+            foreach (var sharesOfCompany in SharesOfCompanies)
+                SharesValue.AddToRawValue(sharesOfCompany.Key.StockPrize.CurrentValue * (float)GetShares(sharesOfCompany.Key));
         }
 
         #region HANDLERS
 
         private void HandleSharesChanging(Company company, int sharesDelta)
         {
-            ChangeShares(company.Id, sharesDelta);
+            ChangeShares(company, sharesDelta);
 
             int totalCost = company.GetPrizeOfShares(sharesDelta);
             ChangeMoney(-totalCost);
+
+            RecalculateSharesValue();
         }
 
         #endregion

@@ -15,5 +15,6 @@ MonoBehaviour:
   companiesSettings:
     minCompaniesInGame: 3
     maxCompaniesInGame: 5
-  timingSettings:
+  assumptionsSettings:
+    playerMoney: 100000
     roundsCount: 20

@@ -83,12 +83,12 @@ namespace Gameplay.Values
                 ForceRefreshValue();
         }
 
-        public void RemoveComponent(ModifiableValue componentToRemove)
+        public void RemoveComponent(ModifiableValue componentToRemove, bool refreshAfterChanges = true)
         {
             additionalComponents.Remove(componentToRemove);
             componentToRemove.OnValueChanged -= HandleComponentValueChanged;
 
-            if (componentToRemove.CurrentValue != 0)
+            if (refreshAfterChanges && componentToRemove.CurrentValue != 0)
                 ForceRefreshValue();
         }
 
@@ -106,6 +106,17 @@ namespace Gameplay.Values
 
             if (modifier.BaseValue != 0)
                 ForceRefreshValue();
+        }
+
+        public void CleanUp()
+        {
+            modifiers.Clear();
+
+            for (int i = additionalComponents.Count - 1; i >= 0; i--)
+                RemoveComponent(additionalComponents[i]);
+
+            SetRawValue(0);
+            ForceRefreshValue();
         }
 
         public string GetValueToShow()
