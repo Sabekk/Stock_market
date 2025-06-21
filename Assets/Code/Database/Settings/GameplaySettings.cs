@@ -8,14 +8,14 @@ namespace Database.Settings
         #region VARIABLES
 
         [SerializeField] private GameplaySettings_Companies companiesSettings = new();
-        [SerializeField] private GameplaySettings_Timing timingSettings = new();
+        [SerializeField] private GameplaySettings_Assumptions assumptionsSettings = new();
 
         #endregion
 
         #region PROPERTIES
 
         public GameplaySettings_Companies CompaniesSettings => companiesSettings;
-        public GameplaySettings_Timing TimingSettings => timingSettings;
+        public GameplaySettings_Assumptions AssumptionsSettings => assumptionsSettings;
 
         #endregion
 
