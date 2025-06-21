@@ -4,7 +4,7 @@ using Gameplay.Managment;
 using Database;
 using Database.Company;
 
-namespace Gameplay.Company
+namespace Gameplay.Companies
 {
     public class CompaniesManager : GameplayManager<CompaniesManager>
     {
@@ -16,6 +16,7 @@ namespace Gameplay.Company
 
         #region PROPERTIES
 
+        public List<Company> Companies => companies;
         private MainDatabases Database => MainDatabases.Instance;
 
         #endregion
@@ -36,6 +37,18 @@ namespace Gameplay.Company
         {
             base.Initialzie();
             InitializeCompanies();
+        }
+
+        public Company TryGetCompanyById(int companyId)
+        {
+            Company company = CompaniesManager.Instance.Companies.GetElementById(companyId);
+            if (company == null)
+            {
+                Debug.LogError($"Company id {companyId}, didn't found");
+                return null;
+            }
+
+            return company;
         }
 
         private void InitializeCompanies()

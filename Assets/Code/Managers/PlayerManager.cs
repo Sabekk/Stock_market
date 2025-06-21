@@ -36,7 +36,7 @@ namespace Gameplay.Player
             return shares;
         }
 
-        public void AddShares(int companyId, int sharesDelta)
+        public void ChangeShares(int companyId, int sharesDelta)
         {
             if (SharesOfCompanies.ContainsKey(companyId) == false)
             {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay.Company
+namespace Gameplay.Companies
 {
     [Serializable]
     public class Company : IAttachableEvents, IIdEqualable
@@ -23,9 +23,11 @@ namespace Gameplay.Company
         #region PROPERTIES
 
         public int Id => data.Id;
+        public int CurrentSharesCount => currentSharesCount;
         public float GroupStockPrizeMultipler => data.GroupsStockPrizeMultipler;
         public string CompanyName => data.CompanyName;
         public List<CompanyGroup> Groups => groups;
+        public ModifiableValue StockPrize => stockPrize;
 
         #endregion
 
@@ -42,6 +44,16 @@ namespace Gameplay.Company
         #endregion
 
         #region METHODS
+
+        public int GetPrizeOfShares(int sharesCount)
+        {
+            return Mathf.RoundToInt(sharesCount * StockPrize.CurrentValue);
+        }
+
+        public void ChangeShares(int delta)
+        {
+            currentSharesCount += delta;
+        }
 
         public void AddGroup(CompanyGroup newGroup)
         {
